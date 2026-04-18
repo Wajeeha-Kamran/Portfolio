@@ -269,12 +269,12 @@ const projects = [
           { hex: '#FDF5E6', name: 'Vintage Cream' }
         ],
         images: [
-          '/menu images/menu1.png',
-          '/menu images/image1.png',
-          '/menu images/img1.png',
-          '/menu images/img2.png',
-          '/menu images/img3.png',
-          '/menu images/img4.png'
+          '/menu images/menu1.jpg',
+          '/menu images/image1.jpg',
+          '/menu images/img1.jpg',
+          '/menu images/img2.jpg',
+          '/menu images/img3.jpg',
+          '/menu images/img4.jpg'
         ],
         ctaLinks: { figma: 'https://www.figma.com/design/5HxLB48IkfJV1ISwEtzis3/Untitled?node-id=117-125&t=rm4Gg0Jx1ebio1mh-1', live: '#' },
         layoutHints: {
