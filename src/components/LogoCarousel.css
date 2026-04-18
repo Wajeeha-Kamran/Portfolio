@@ -1,0 +1,68 @@
+.logos-section {
+  background: rgba(10, 10, 15, 0.4);
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(192, 132, 252, 0.15);
+  border-bottom: 1px solid rgba(192, 132, 252, 0.15);
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.logos-viewport {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.logos-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.logo-item {
+  flex-shrink: 0;
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-item span {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.logo-item:hover span {
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.8);
+}
+
+/* Fade edges */
+.logos-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15vw;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.logos-fade--left {
+  left: 0;
+  background: linear-gradient(to right, #000 0%, transparent 100%);
+}
+
+.logos-fade--right {
+  right: 0;
+  background: linear-gradient(to left, #000 0%, transparent 100%);
+}

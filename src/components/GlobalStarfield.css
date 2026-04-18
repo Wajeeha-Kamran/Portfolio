@@ -1,0 +1,10 @@
+.global-starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10; 
+  pointer-events: none; /* Allows clicks to pass through to the page content */
+  background-color: var(--bg-primary, #0a0a0f); /* Fallback to near-black space base */
+}

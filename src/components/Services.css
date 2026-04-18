@@ -1,0 +1,443 @@
+/* ── Pin wrapper — this is what GSAP pins ─────────────────── */
+.services-pin-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.services-section {
+  position: relative;
+  --card-w: 360px;
+  --card-gap: 24px;
+  --card-tot-w: calc(var(--card-w) + var(--card-gap));
+
+  background: transparent;
+  padding: 4rem 0 3rem;
+  border-top: none;
+  width: 100%;
+  /* Removed height: 100vh. Now it wraps its content and pins exactly in the screen's center. */
+  /* overflow:hidden coerces overflow-y to 'auto' which clips scaled card bottoms.
+     overflow-x:clip is exempt from that coercion rule — it clips the horizontal
+     track bleed into the sphere area while letting card scale-up overflow freely. */
+  overflow-x: clip;
+  overflow-y: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-inner {
+  max-width: 55%;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 0 4rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+
+/* Header */
+.services-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.services-header-left {
+  flex-shrink: 0;
+}
+
+.services-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.services-heading {
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: white;
+}
+
+.services-desc {
+  max-width: 360px;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.75;
+  padding-top: 0.5rem;
+  margin: 0;
+}
+
+.services-scroll-hint {
+  position: relative;
+  display: inline-block;
+  font-size: 0.85rem;
+  color: #a78bfa; /* lighter/brighter purple */
+  letter-spacing: 0.08em;
+  margin-top: 1.2rem;
+  font-style: italic;
+  padding: 0.4rem 1.2rem;
+}
+
+.services-header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* Cards fade softly on the RIGHT (entry side) only.
+   The LEFT has NO transparent zone so card 01 is fully opaque on load.
+   Cards exit with a clean cut on the left during scrolling. */
+.services-viewport {
+  width: calc(var(--card-tot-w) * 2);
+  overflow: visible;
+  padding: 40px 0 60px 0;
+  box-sizing: content-box;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black calc(100% - 60px),
+    rgba(0,0,0,0.4) calc(100% - 20px),
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black calc(100% - 60px),
+    rgba(0,0,0,0.4) calc(100% - 20px),
+    transparent 100%
+  );
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+
+/* Inner track — GSAP drives the X transform, NO CSS transition */
+.services-track {
+  display: flex;
+  gap: var(--card-gap);
+  will-change: transform;
+  /* No horizontal padding — keeps scrollWidth clean for math */
+  padding: 0 0 0 0;
+}
+
+/* ── Service Card ──────────────────────────────────────────── */
+.service-card {
+  flex-shrink: 0;
+  width: var(--card-w);
+  min-height: 540px;  /* increased from 440px — content was overflowing bottom */
+  height: 540px;      /* fixed height so both cover and content layers match exactly */
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gradient border */
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.05) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.service-card-content {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: linear-gradient(150deg, #37306b 0%, #292454 100%);
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.service-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.service-card.active {
+  transform: translateY(-8px) scale(1.03);
+  z-index: 5;
+}
+
+.service-card.active:hover {
+  transform: translateY(-12px) scale(1.05);
+}
+
+.service-card.active .service-card-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cover */
+.service-card-cover {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #09090b 0%, #030304 100%);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.service-card-cover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 250px;
+  height: 250px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.4) 2px, transparent 2px);
+  background-size: 24px 24px;
+  background-position: right bottom;
+  -webkit-mask-image: radial-gradient(circle at bottom right, black 0%, transparent 75%);
+  mask-image: radial-gradient(circle at bottom right, black 0%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cover-top, .cover-title {
+  position: relative;
+  z-index: 2;
+}
+
+.service-card.active .service-card-cover {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-num {
+  font-size: 2rem;
+  font-weight: 500;
+  color: white;
+  line-height: 1;
+}
+
+.cover-arrow {
+  color: white;
+  opacity: 1;
+}
+
+.cover-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.service-card-num {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.08em;
+}
+
+.service-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.service-card-title {
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.service-card-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.5);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.service-card.active .service-card-arrow,
+.service-card:hover .service-card-arrow {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
+.service-card-desc {
+  font-size: 0.83rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.72;
+  margin: auto 0;
+}
+
+.service-card-bottom {
+  display: flex;
+  gap: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 1.25rem;
+}
+
+.service-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.service-col-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.3rem;
+}
+
+.service-col-item {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.52);
+  font-weight: 300;
+}
+
+/* ── "and more" annotation ───────────────────────────────────── */
+/* Sits as a normal flex child BELOW the card viewport,
+   aligned to the right edge, so it never overlaps the cards */
+.services-and-more {
+  align-self: flex-end;
+  margin-top: 1.25rem;
+  pointer-events: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .service-card {
+    --card-w: 300px;
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-particle-container,
+  .design-code-annotation {
+    display: none !important;
+  }
+
+  .services-section {
+    height: auto;
+    overflow: visible;
+    padding: 5rem 0 4rem;
+  }
+
+  .services-inner {
+    max-width: 100%;
+    padding: 0 1rem;
+    margin-left: 0;
+  }
+
+  .services-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .services-header-left svg {
+    max-width: 200px !important;
+    height: auto !important;
+  }
+  
+  .services-header-right {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .services-viewport {
+    width: 100%;
+    margin-left: 0; 
+    padding: 0;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .services-track {
+    width: 100%;
+    padding: 0 0 2rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+  }
+
+  .service-card {
+    scroll-snap-align: center;
+    --card-w: 260px;
+    width: 260px;
+    min-height: 480px;
+    height: 480px;
+  }
+  
+  .service-card-title {
+    font-size: 1.15rem;
+  }
+  .service-card-desc {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  .service-col-item {
+    font-size: 0.7rem;
+  }
+  
+  /* Shrink the large scribble circles */
+  .services-header-right svg {
+    max-width: 140px !important;
+    height: auto !important;
+  }
+  
+  .cover-num svg,
+  .service-card-num svg {
+    max-width: 40px !important;
+    height: auto !important;
+  }
+}

@@ -1,0 +1,32 @@
+.app {
+  background: transparent;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* Global Background Setup */
+.global-bg-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+  width: 100vw;
+  height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -5; /* Set far behind all components */
+  will-change: transform, opacity;
+}
+
+.global-bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(10, 10, 15, 0.4) 0%, rgba(10, 10, 15, 0.8) 100%);
+  z-index: -4; /* Just above the global video */
+  pointer-events: none;
+}

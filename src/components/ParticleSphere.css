@@ -1,0 +1,17 @@
+.particle-sphere-wrapper {
+  position: absolute;
+  top: 15%; /* Moved down to align with cards */
+  left: 0;
+  width: 45%;
+  height: 85%; /* Adjusted so it doesn't overflow */
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.particle-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
