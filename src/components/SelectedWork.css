@@ -52,7 +52,6 @@
 .work-item {
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   cursor: pointer;
-  overflow: hidden;
   transition: background 0.3s ease;
 }
 
@@ -140,7 +139,7 @@
   top: 8rem;
   border-radius: 16px;
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/5; /* Taller on desktop to cover more projects */
   background: rgba(15,15,35,0.5);
 }
 
@@ -206,6 +205,7 @@
   .work-preview {
     position: relative;
     top: 0;
+    aspect-ratio: 4/3; /* Revert to horizontal on mobile */
   }
 
   .work-tags {
@@ -995,4 +995,51 @@
     width: 100%;
     text-align: center;
   }
+}
+
+/* Featured Project Highlight Styles */
+.work-item.work-highlight {
+  position: relative;
+  background: rgba(192, 132, 252, 0.05);
+  border: 2px dashed rgba(192, 132, 252, 0.4);
+  border-radius: 12px;
+  margin: 15px 0;
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.1);
+}
+
+.work-item.work-highlight.active,
+.work-item.work-highlight:hover {
+  background: rgba(192, 132, 252, 0.1);
+  border-color: rgba(192, 132, 252, 0.8);
+  box-shadow: 0 0 30px rgba(192, 132, 252, 0.2);
+}
+
+/* Ensures layout doesn't break due to the border/margin shifts */
+.work-item.work-highlight .work-item-inner {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.work-item.work-highlight.active .work-item-inner,
+.work-item.work-highlight:hover .work-item-inner {
+  padding-left: 2rem;
+}
+
+.ongoing-project-annotation {
+  position: absolute;
+  top: -35px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  pointer-events: none;
+  background: transparent;
+}
+
+.ongoing-project-annotation span {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: #c084fc;
+  white-space: nowrap;
 }

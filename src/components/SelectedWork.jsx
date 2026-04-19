@@ -286,6 +286,17 @@ const projects = [
   },
   {
     num: '09',
+    title: 'AI-Powered EMR Assistant',
+    tags: ['AI', 'HealthTech', 'Concept'],
+    preview: '/previews/ai_emr.png',
+    isHighlighted: true,
+    modalData: {
+      problemStatement: 'Doctors currently spend a significant portion of their time documenting patient encounters. The objective of this conceptual design was to create an AI-powered Electronic Medical Record (EMR) assistant that proactively captures data and intuitively surfaces relevant patient history.',
+      // Intentionally omitting solution to only show problem statement
+    }
+  },
+  {
+    num: '10',
     title: 'Other Projects',
     tags: ['Design Gallery', 'UI/UX', 'Selection'],
     preview: '/previews/other_projects.png',
@@ -431,13 +442,22 @@ function SelectedWork() {
             {projects.map((p, i) => (
               <div
                 key={p.num}
-                className={`work-item ${activeProject === i ? 'active' : ''} ${p.modalData ? 'has-modal' : ''}`}
+                className={`work-item ${activeProject === i ? 'active' : ''} ${p.modalData ? 'has-modal' : ''} ${p.isHighlighted ? 'work-highlight' : ''}`}
                 onMouseEnter={() => setActiveProject(i)}
                 onClick={() => openModal(p)}
                 role="button"
                 tabIndex={0}
                 id={`work-item-${p.num}`}
+                style={{ position: 'relative' }}
               >
+                {p.isHighlighted && (
+                  <div className="ongoing-project-annotation">
+                    <svg className="sparkle-mini" width="16" height="16" viewBox="0 0 100 100">
+                      <path d="M50 0 C50 40 60 50 100 50 C60 50 50 60 50 100 C50 60 40 50 0 50 C40 50 50 40 50 0 Z" fill="#c084fc" />
+                    </svg>
+                    <span>ongoing</span>
+                  </div>
+                )}
                 <div className="work-item-inner">
                   <span className="work-num">{p.num}</span>
                   <span className="work-title">{p.title}</span>
@@ -495,12 +515,12 @@ function SelectedWork() {
             <div className="modal-inner-scroll">
               <div className="modal-header-info">
                 <span className="featured-chip">
-                  {selectedProjectData.num === '09' ? 'PROJECT COLLECTION' : 'FEATURED PROJECT'}
+                  {selectedProjectData.num === '10' ? 'PROJECT COLLECTION' : 'FEATURED PROJECT'}
                 </span>
                 <h3 className="modal-title">{selectedProjectData.title}</h3>
               </div>
 
-              {selectedProjectData.num === '09' ? (
+              {selectedProjectData.num === '10' ? (
                 <div className="modal-section" style={{ padding: '0 2rem 4rem' }}>
                   <div className="other-projects-grid">
                     {selectedProjectData.modalData.gridProjects.map((proj, idx) => (
@@ -518,150 +538,150 @@ function SelectedWork() {
                   </div>
                 </div>
               ) : (
-                <>
-                  <div className="modal-section">
-                    <h4>Problem Statement</h4>
-                    <p>{selectedProjectData.modalData.problemStatement}</p>
-                  </div>
+                  <div className="modal-content-wrapper">
+                    <div className="modal-section">
+                      <h4>Problem Statement</h4>
+                      <p>{selectedProjectData.modalData.problemStatement}</p>
+                    </div>
 
-                  <div className="modal-section modal-solution">
-                    <h4 style={{ padding: '2rem 2rem 0' }}>The Solution</h4>
+                    {selectedProjectData.modalData.solution && (
+                      <div className="modal-section modal-solution">
+                        <h4 style={{ padding: '2rem 2rem 0' }}>The Solution</h4>
 
-                    <div className="modal-typo-colors">
-                      <h5 className="section-dot-title" style={{ padding: '0 2rem' }}><span className="dot" style={{ backgroundColor: '#a855f7' }}></span> Topography & Colors</h5>
-                      <div className="design-system-grid">
-                        <div className="modal-section design-sub-box">
-                          <div className="sub-title-wrapper">
-                            <h6 className="sub-title-center">Colors Used</h6>
-                            <WavyUnderline width={120} />
-                          </div>
-                          <div className="color-palette">
-                            {selectedProjectData.modalData.solution.colors.map(c => (
-                              <div className="color-item" key={c.hex}>
-                                <div className="color-circle" style={{ backgroundColor: c.hex }}>
-                                  <span style={{ color: c.hex === '#FFFFFF' || c.hex === '#E8DED2' ? '#000' : '#FFF' }}>{c.hex.replace('#', '')}</span>
-                                </div>
-                                <span className="color-name">{c.name}</span>
+                        <div className="modal-typo-colors">
+                          <h5 className="section-dot-title" style={{ padding: '0 2rem' }}><span className="dot" style={{ backgroundColor: '#a855f7' }}></span> Topography & Colors</h5>
+                          <div className="design-system-grid">
+                            <div className="modal-section design-sub-box">
+                              <div className="sub-title-wrapper">
+                                <h6 className="sub-title-center">Colors Used</h6>
+                                <WavyUnderline width={120} />
                               </div>
-                            ))}
-                          </div>
-                        </div>
+                              <div className="color-palette">
+                                {selectedProjectData.modalData.solution.colors.map(c => (
+                                  <div className="color-item" key={c.hex}>
+                                    <div className="color-circle" style={{ backgroundColor: c.hex }}>
+                                      <span style={{ color: c.hex === '#FFFFFF' || c.hex === '#E8DED2' ? '#000' : '#FFF' }}>{c.hex.replace('#', '')}</span>
+                                    </div>
+                                    <span className="color-name">{c.name}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
 
-                        <div className="modal-section design-sub-box">
-                          <div className="sub-title-wrapper">
-                            <h6 className="sub-title-center">Fonts Used</h6>
-                            <WavyUnderline width={110} />
-                          </div>
-                          <div className="typo-showcase">
-                            <div className="typo-preview">
-                              <div className="font-pair">
-                                <div className="font-item">
-                                  <span className="font-label">Heading:</span>
-                                  <span className="typo-name" style={{ fontFamily: selectedProjectData.modalData.solution.typography.headingFamily }}>
-                                    {selectedProjectData.modalData.solution.typography.headingFamily}
-                                  </span>
+                            <div className="modal-section design-sub-box">
+                              <div className="sub-title-wrapper">
+                                <h6 className="sub-title-center">Fonts Used</h6>
+                                <WavyUnderline width={110} />
+                              </div>
+                              <div className="typo-showcase">
+                                <div className="typo-preview">
+                                  <div className="font-pair">
+                                    <div className="font-item">
+                                      <span className="font-label">Heading:</span>
+                                      <span className="typo-name" style={{ fontFamily: selectedProjectData.modalData.solution.typography.headingFamily }}>
+                                        {selectedProjectData.modalData.solution.typography.headingFamily}
+                                      </span>
+                                    </div>
+                                    <div className="font-item">
+                                      <span className="font-label">Body:</span>
+                                      <span className="typo-name body-font-preview" style={{ fontFamily: selectedProjectData.modalData.solution.typography.bodyFamily }}>
+                                        {selectedProjectData.modalData.solution.typography.bodyFamily}
+                                      </span>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="font-item">
-                                  <span className="font-label">Body:</span>
-                                  <span className="typo-name body-font-preview" style={{ fontFamily: selectedProjectData.modalData.solution.typography.bodyFamily }}>
-                                    {selectedProjectData.modalData.solution.typography.bodyFamily}
-                                  </span>
+                                <div className="typo-weights">
+                                  {selectedProjectData.modalData.solution.typography.weights.map(w => (
+                                    <div className="weight-item" key={w}>
+                                      <span className="weight-family">{selectedProjectData.modalData.solution.typography.bodyFamily}</span>
+                                      <span className="weight-name" style={{ fontWeight: w.replace(' ', '').toLowerCase() === 'semibold' ? 600 : w.replace(' ', '').toLowerCase() === 'extrabold' ? 800 : w.replace(' ', '').toLowerCase() === 'black' ? 900 : w.toLowerCase() === 'medium' ? 500 : 400 }}>{w}</span>
+                                    </div>
+                                  ))}
                                 </div>
                               </div>
                             </div>
-                            <div className="typo-weights">
-                              {selectedProjectData.modalData.solution.typography.weights.map(w => (
-                                <div className="weight-item" key={w}>
-                                  <span className="weight-family">{selectedProjectData.modalData.solution.typography.bodyFamily}</span>
-                                  <span className="weight-name" style={{ fontWeight: w.replace(' ', '').toLowerCase() === 'semibold' ? 600 : w.replace(' ', '').toLowerCase() === 'extrabold' ? 800 : w.replace(' ', '').toLowerCase() === 'black' ? 900 : w.toLowerCase() === 'medium' ? 500 : 400 }}>{w}</span>
-                                </div>
-                              ))}
+                          </div>
+                        </div>
+
+                        <div className="modal-project-images">
+                          <h5 className="section-dot-title" style={{ padding: '0 2rem' }}><span className="dot" style={{ backgroundColor: '#a855f7' }}></span> The Design</h5>
+
+                          <div className="carousel-container">
+                            <div className="carousel-viewport">
+                              {selectedProjectData.modalData.solution.images.map((media, idx) => {
+                                const isVideo = media.toLowerCase().endsWith('.mp4');
+                                const isContained = selectedProjectData.modalData.solution.layoutHints?.containImages?.includes(idx);
+
+                                return isVideo ? (
+                                  <video
+                                    key={selectedProjectData.num + idx}
+                                    ref={(el) => (carouselMediaRefs.current[idx] = el)}
+                                    src={media}
+                                    className={`project-mockup ${currentImgIndex === idx ? 'active' : ''} ${isContained ? 'fit-contain' : ''}`}
+                                    loop
+                                    muted
+                                    playsInline
+                                    preload={currentImgIndex === idx ? "auto" : "metadata"}
+                                  />
+                                ) : (
+                                  <img
+                                    key={selectedProjectData.num + idx}
+                                    ref={(el) => (carouselMediaRefs.current[idx] = el)}
+                                    src={media}
+                                    alt={`${selectedProjectData.title} view ${idx + 1}`}
+                                    className={`project-mockup ${currentImgIndex === idx ? 'active' : ''} ${isContained ? 'fit-contain' : ''}`}
+                                    loading="lazy"
+                                  />
+                                );
+                              })}
+
+                              {/* Hover Pill logic based on layoutHints */}
+                              {(selectedProjectData.modalData.solution.layoutHints?.hoverPillIndices?.includes(currentImgIndex) ||
+                                selectedProjectData.modalData.solution.layoutHints?.hoverPillIndex === currentImgIndex) && (
+                                  <div className="modal-explore-pill">
+                                    <BasedInPill text="hover to explore" />
+                                  </div>
+                                )}
+                            </div>
+
+                            <div className="carousel-controls">
+                              <div className="arrow-buttons">
+                                <button className="arrow-btn prev" onClick={prevImg}>
+                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                                  </svg>
+                                </button>
+                                <button className="arrow-btn next" onClick={nextImg}>
+                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7" />
+                                  </svg>
+                                </button>
+                              </div>
+
+                              <div className="carousel-pagination">
+                                {selectedProjectData.modalData.solution.images.map((_, idx) => (
+                                  <div
+                                    key={idx}
+                                    className={`pag-dot ${currentImgIndex === idx ? 'active' : ''}`}
+                                    onClick={() => setCurrentImgIndex(idx)}
+                                  ></div>
+                                ))}
+                              </div>
+
+                              <p className="carousel-help-text">Click the arrows or dots to navigate through key screens</p>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="modal-project-images">
-                      <h5 className="section-dot-title" style={{ padding: '0 2rem' }}><span className="dot" style={{ backgroundColor: '#a855f7' }}></span> The Design</h5>
-
-                      <div className="carousel-container">
-                        <div className="carousel-viewport">
-                          {selectedProjectData.modalData.solution.images.map((media, idx) => {
-                            const isVideo = media.toLowerCase().endsWith('.mp4');
-                            const isContained = selectedProjectData.modalData.solution.layoutHints?.containImages?.includes(idx);
-
-                            return isVideo ? (
-                              <video
-                                key={selectedProjectData.num + idx}
-                                ref={(el) => (carouselMediaRefs.current[idx] = el)}
-                                src={media}
-                                className={`project-mockup ${currentImgIndex === idx ? 'active' : ''} ${isContained ? 'fit-contain' : ''}`}
-                                loop
-                                muted
-                                playsInline
-                                preload={currentImgIndex === idx ? "auto" : "metadata"}
-                              />
-                            ) : (
-                              <img
-                                key={selectedProjectData.num + idx}
-                                ref={(el) => (carouselMediaRefs.current[idx] = el)}
-                                src={media}
-                                alt={`${selectedProjectData.title} view ${idx + 1}`}
-                                className={`project-mockup ${currentImgIndex === idx ? 'active' : ''} ${isContained ? 'fit-contain' : ''}`}
-                                loading="lazy"
-                              />
-                            );
-                          })}
-
-                          {/* Hover Pill logic based on layoutHints */}
-                          {(selectedProjectData.modalData.solution.layoutHints?.hoverPillIndices?.includes(currentImgIndex) ||
-                            selectedProjectData.modalData.solution.layoutHints?.hoverPillIndex === currentImgIndex) && (
-                              <div className="modal-explore-pill">
-                                <BasedInPill text="hover to explore" />
-                              </div>
-                            )}
-                        </div>
-
-
-                        <div className="carousel-controls">
-                          <div className="arrow-buttons">
-                            <button className="arrow-btn prev" onClick={prevImg}>
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M19 12H5M12 19l-7-7 7-7" />
-                              </svg>
-                            </button>
-                            <button className="arrow-btn next" onClick={nextImg}>
-                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                              </svg>
-                            </button>
+                          <div className="modal-action-footer">
+                            <div className="modal-cta-buttons">
+                              <a href={selectedProjectData.modalData.solution.ctaLinks?.figma || '#'} className="modal-btn outline">VIEW ON FIGMA</a>
+                            </div>
+                            <p className="modal-design-credit">Designed in Figma · 2024</p>
                           </div>
-
-                          <div className="carousel-pagination">
-                            {selectedProjectData.modalData.solution.images.map((_, idx) => (
-                              <div
-                                key={idx}
-                                className={`pag-dot ${currentImgIndex === idx ? 'active' : ''}`}
-                                onClick={() => setCurrentImgIndex(idx)}
-                              ></div>
-                            ))}
-                          </div>
-
-                          <p className="carousel-help-text">Click the arrows or dots to navigate through key screens</p>
                         </div>
                       </div>
-
-                      <div className="modal-action-footer">
-                        <div className="modal-cta-buttons">
-                          <a href={selectedProjectData.modalData.solution.ctaLinks?.figma || '#'} className="modal-btn outline">VIEW ON FIGMA</a>
-                        </div>
-                        <p className="modal-design-credit">Designed in Figma · 2024</p>
-                      </div>
-                    </div>
-
+                    )}
                   </div>
-                </>
               )}
             </div>
           </div>
