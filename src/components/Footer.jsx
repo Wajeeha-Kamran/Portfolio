@@ -16,15 +16,17 @@ function Footer() {
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       formRef.current,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      {
+        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      }
     ).then((result) => {
         alert('Message sent successfully!');
         setIsSending(false);
         e.target.reset();
         toggleModal();
     }, (error) => {
-        alert('Failed to send message. Please try again.');
-        console.log(error.text);
+        console.error('EmailJS Error:', error);
+        alert(`Failed to send message: ${error.text || 'Missing Environment Variables in Vercel Deployment'}`);
         setIsSending(false);
     });
   };
