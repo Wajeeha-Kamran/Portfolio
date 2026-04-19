@@ -48,14 +48,53 @@
   flex-shrink: 0;
 }
 
+.eyebrow-bracket-wrapper {
+  position: relative;
+  display: inline-flex;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.eyebrow-bracket-wrapper .corner-bracket {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: #c084fc;
+  border-style: solid;
+  filter: drop-shadow(0 0 6px rgba(192, 132, 252, 0.8));
+}
+
+.eyebrow-bracket-wrapper .corner-bracket.top-left {
+  top: 0;
+  left: 0;
+  border-width: 1.5px 0 0 1.5px;
+}
+
+.eyebrow-bracket-wrapper .corner-bracket.top-right {
+  top: 0;
+  right: 0;
+  border-width: 1.5px 1.5px 0 0;
+}
+
+.eyebrow-bracket-wrapper .corner-bracket.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 1.5px 1.5px;
+}
+
+.eyebrow-bracket-wrapper .corner-bracket.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1.5px 1.5px 0;
+}
+
 .services-eyebrow {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #c084fc;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 .services-heading {

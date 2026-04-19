@@ -1,0 +1,131 @@
+.hire-me-pill-container {
+  position: fixed;
+  bottom: 6rem; /* High baseline */
+  right: 6rem;  /* Hero baseline */
+  z-index: 999;
+  pointer-events: auto;
+  transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hire-me-pill-container.is-left {
+  right: auto;
+  left: 6rem; /* Move to the left when active */
+}
+
+.hire-me-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.8rem;
+  
+  /* Blackish solid/low-transparency base */
+  background: #0a0a0f; 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Full pill roundness */
+  border-radius: 100px; 
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  
+  /* Solid Purple Border matching Navbar */
+  border: 2px solid #c084fc;
+
+  /* Prominent purple glow below the pill */
+  box-shadow: 0 0 25px rgba(192, 132, 252, 0.4);
+}
+
+/* White Swipe Effect from Navbar contact */
+.hire-me-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -101%;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: -1;
+}
+
+.hire-me-pill:hover::before {
+  left: 0;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Pulsing effect */
+.status-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid #10b981;
+  animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+  0% { width: 8px; height: 8px; opacity: 1; }
+  100% { width: 22px; height: 22px; opacity: 0; }
+}
+
+.hire-me-text {
+  color: #c084fc; /* Purple text as requested */
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+/* Hover adjustments */
+.hire-me-pill:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+}
+
+.hire-me-pill:hover .hire-me-text {
+  color: #000000; /* Black text on white background */
+}
+
+/* On hover, the green dot needs to stay visible but maybe more contrast */
+.hire-me-pill:hover .status-dot {
+  background-color: #10b981;
+  filter: brightness(0.8);
+}
+.hire-me-pill:hover .status-dot::after {
+  border-color: #10b981;
+}
+
+.hire-me-pill:active {
+  transform: scale(0.96);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .hire-me-pill-container {
+    bottom: 2rem;
+    right: 2rem;
+  }
+
+  .hire-me-pill {
+    padding: 0.7rem 1.4rem;
+  }
+}

@@ -193,7 +193,13 @@ function Services() {
           {/* Header row */}
           <div className="services-header">
             <div className="services-header-left">
-              <span className="services-eyebrow">What I Create</span>
+              <div className="eyebrow-bracket-wrapper">
+                <span className="corner-bracket top-left"></span>
+                <span className="corner-bracket top-right"></span>
+                <span className="corner-bracket bottom-left"></span>
+                <span className="corner-bracket bottom-right"></span>
+                <span className="services-eyebrow">What I Create</span>
+              </div>
               <h2 className="services-heading">
                 Core
                 <br />
