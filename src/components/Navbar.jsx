@@ -31,7 +31,7 @@ function Navbar() {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-inner">
         <div className="nav-logo">
-          <span className="logo-text">PORTFOLIO</span>
+          <span className="logo-text">Portfolio</span>
         </div>
 
         <ul className="nav-links">
