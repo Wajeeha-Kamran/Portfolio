@@ -206,7 +206,7 @@ function Services() {
                 I bring design and development together to create digital experiences that work.
               </p>
               <div style={{ position: "relative", display: "inline-block" }}>
-                <p className="services-scroll-hint">scroll to explore →</p>
+                <p className="services-scroll-hint">scroll down to explore ↓</p>
                 <SketchyCircle color="#a78bfa" width={180} height={42} opacity={0.8} />
               </div>
             </div>
