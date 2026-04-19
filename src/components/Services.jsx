@@ -108,12 +108,12 @@ function Services() {
     const getScrollAmount = () => -(track.scrollWidth - viewport.clientWidth);
 
     let mm = gsap.matchMedia();
-    
+
     // Also track desktop breakpoint for conditionally mounting ParticleSphere
     const checkDesktop = () => setIsDesktop(window.innerWidth > 768);
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
-    
+
     mm.add("(min-width: 769px)", () => {
       gsap.to(track, {
         x: getScrollAmount,
@@ -207,15 +207,15 @@ function Services() {
               </p>
               <div style={{ position: "relative", display: "inline-block" }}>
                 <p className="services-scroll-hint">scroll down to explore ↓</p>
-                <SketchyCircle color="#a78bfa" width={180} height={42} opacity={0.8} />
+                <SketchyCircle color="#a78bfa" width={260} height={70} opacity={0.8} />
               </div>
             </div>
           </div>
 
           {/* Horizontal scrolling track — overflow:hidden here clips cards as they leave */}
           <div className="services-viewport" ref={viewportRef}>
-            <div 
-              className="services-track" 
+            <div
+              className="services-track"
               ref={trackRef}
               onScroll={(e) => {
                 if (isDesktop) return;
