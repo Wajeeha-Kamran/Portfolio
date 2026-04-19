@@ -1,10 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import './Footer.css';
 import { WavyUnderline } from './Scribbles';
-
 function Footer() {
   const [time, setTime] = useState('');
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const formRef = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      formRef.current,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).then((result) => {
+        alert('Message sent successfully!');
+        setIsSending(false);
+        e.target.reset();
+        toggleModal();
+    }, (error) => {
+        alert('Failed to send message. Please try again.');
+        console.log(error.text);
+        setIsSending(false);
+    });
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -123,7 +146,7 @@ function Footer() {
               </div>
             </div>
 
-            <form className="contact-form" onSubmit={(e) => { e.preventDefault(); alert('Message sent to wajeeha.kh20@gmail.com successfully!'); toggleModal(); }}>
+            <form ref={formRef} className="contact-form" onSubmit={sendEmail}>
               <div className="form-group recipient-group">
                 <label htmlFor="recipient">To:</label>
                 <div className="recipient-input-wrapper">
@@ -135,29 +158,31 @@ function Footer() {
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="name">Full Name</label>
-                  <input type="text" id="name" placeholder="John Doe" required />
+                  <input type="text" id="name" name="user_name" placeholder="John Doe" required />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Your Email Address</label>
-                  <input type="email" id="email" placeholder="john@example.com" required />
+                  <input type="email" id="email" name="user_email" placeholder="john@example.com" required />
                 </div>
               </div>
               
               <div className="form-group">
                 <label htmlFor="subject">Subject</label>
-                <input type="text" id="subject" placeholder="Project Inquiry" required />
+                <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required />
               </div>
 
               <div className="form-group">
                 <label htmlFor="message">Message</label>
-                <textarea id="message" rows="3" placeholder="Tell me about your project..." required></textarea>
+                <textarea id="message" name="message" rows="3" placeholder="Tell me about your project..." required></textarea>
               </div>
 
-              <button type="submit" className="footer-cta-btn form-submit-btn">
-                Send Message
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+              <button type="submit" className="footer-cta-btn form-submit-btn" disabled={isSending}>
+                {isSending ? 'Sending...' : 'Send Message'}
+                {!isSending && (
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 13L13 3M13 3H7M13 3V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
               </button>
             </form>
           </div>
