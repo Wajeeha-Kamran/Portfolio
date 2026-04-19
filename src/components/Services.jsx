@@ -214,7 +214,20 @@ function Services() {
 
           {/* Horizontal scrolling track — overflow:hidden here clips cards as they leave */}
           <div className="services-viewport" ref={viewportRef}>
-            <div className="services-track" ref={trackRef}>
+            <div 
+              className="services-track" 
+              ref={trackRef}
+              onScroll={(e) => {
+                if (isDesktop) return;
+                const track = e.target;
+                const scrollLeft = track.scrollLeft;
+                const itemWidth = track.children[0].offsetWidth + 20; // card width + 20px gap
+                const index = Math.round(scrollLeft / itemWidth);
+                if (index !== activeCard && index >= 0 && index < services.length) {
+                  setActiveCard(index);
+                }
+              }}
+            >
               {services.map((s, i) => {
                 const isActive = i === activeCard;
                 return (

@@ -554,11 +554,43 @@
 }
 
 @media (max-width: 768px) {
+  .project-modal-backdrop {
+    padding: 1rem;
+  }
   .modal-inner-scroll {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
   .modal-title {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .modal-section p {
+    font-size: 0.9rem;
+  }
+  .section-dot-title {
+    font-size: 1rem;
+  }
+  .typo-name {
+    font-size: 1.5rem !important;
+  }
+  .body-font-preview {
+    font-size: 1.1rem !important;
+  }
+  .typo-chars-upper, .typo-chars-lower, .weight-item {
+    font-size: 0.75rem;
+  }
+  .color-circle {
+    width: 44px;
+    height: 44px;
+    font-size: 0.65rem;
+  }
+  .carousel-viewport {
+    aspect-ratio: 1 / 1.15;
+    min-height: 280px;
+  }
+  .sub-title-wrapper svg {
+    margin-top: -65px;
+    max-width: 140px;
   }
 }
 

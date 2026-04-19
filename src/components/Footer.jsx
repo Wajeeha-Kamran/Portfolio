@@ -101,10 +101,6 @@ function Footer() {
 
         <div className="footer-bar">
           <span>© {new Date().getFullYear()} Wajeeha Kamran. All rights reserved.</span>
-          <div className="footer-bar-links">
-            <a href="#privacy">Privacy</a>
-            <a href="#terms">Terms</a>
-          </div>
         </div>
       </div>
 
