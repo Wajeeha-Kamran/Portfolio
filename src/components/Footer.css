@@ -433,3 +433,90 @@
   opacity: 0.6;
   pointer-events: none;
 }
+
+/* Custom Notification Modal */
+.notification-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.notification-modal-content {
+  background: rgba(20, 20, 30, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 30px rgba(192, 132, 252, 0.1);
+  animation: modalSlideUp 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.notification-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.notification-icon.success {
+  background: rgba(92, 188, 108, 0.1);
+  color: #5CBC6C;
+  border: 2px solid #5CBC6C;
+  box-shadow: 0 0 30px rgba(92, 188, 108, 0.2);
+}
+
+.notification-icon.error {
+  background: rgba(235, 26, 34, 0.1);
+  color: #EB1A22;
+  border: 2px solid #EB1A22;
+  box-shadow: 0 0 30px rgba(235, 26, 34, 0.2);
+}
+
+.notification-message {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.8rem 2.5rem;
+  border-radius: 100px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.notification-btn:hover {
+  background: white;
+  color: black;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}

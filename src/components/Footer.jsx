@@ -6,6 +6,7 @@ function Footer() {
   const [time, setTime] = useState('');
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [notification, setNotification] = useState({ show: false, type: '', message: '' });
   const formRef = useRef();
 
   const sendEmail = (e) => {
@@ -20,13 +21,13 @@ function Footer() {
         publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       }
     ).then((result) => {
-        alert('Message sent successfully!');
+        setNotification({ show: true, type: 'success', message: 'Message sent successfully!' });
         setIsSending(false);
         e.target.reset();
         toggleModal();
     }, (error) => {
         console.error('EmailJS Error:', error);
-        alert(`Failed to send message: ${error.text || 'Missing Environment Variables in Vercel Deployment'}`);
+        setNotification({ show: true, type: 'error', message: `Failed to send: ${error.text || 'Error occurred'}` });
         setIsSending(false);
     });
   };
@@ -70,6 +71,7 @@ function Footer() {
   };
 
   return (
+    <>
     <footer className="footer" id="contact">
       {/* CTA Banner */}
       <div className="footer-cta">
@@ -191,6 +193,33 @@ function Footer() {
         </div>
       )}
     </footer>
+      
+      {/* Notification Modal */}
+      {notification.show && (
+        <div className="notification-modal-backdrop" onClick={() => setNotification({ show: false, type: '', message: '' })}>
+          <div className="notification-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className={`notification-icon ${notification.type}`}>
+              {notification.type === 'success' ? (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              ) : (
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              )}
+            </div>
+            <h3 className="notification-message">{notification.message}</h3>
+            <button className="notification-btn" onClick={() => setNotification({ show: false, type: '', message: '' })}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
